@@ -1,12 +1,20 @@
 var issueContainerE1 = document.querySelector("#issues-container");
 var limitWarningE1 = document.querySelector("#limit-warning");
 var queryString = document.location.search;
-var repoNAmeE1 = document.querySelector("#repo-name");
+var repoNameE1 = document.querySelector("#repo-name");
 
 var getRepoName = function () {
+  // grab the repo name from the queryString
   var repoName = queryString.split("=")[1];
-  getRepoIssues(repoName);
-  repoNAmeE1.textContent = repoName;
+
+  if (repoName) {
+    // display repo name on the page
+    repoNameE1.textContent = repoName;
+    getRepoIssues(repoName);
+  } else {
+    // if no repo was given, redirect to the homepage
+    document.location.replace("./index.html");
+  }
 };
 
 var getRepoIssues = function (repo) {
@@ -24,7 +32,7 @@ var getRepoIssues = function (repo) {
         }
       });
     } else {
-      alert("There was a problem with your request");
+      document.location.replace("./index.html");
     }
   });
 };
